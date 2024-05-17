@@ -1,42 +1,69 @@
 // admin.js
 document.addEventListener('DOMContentLoaded', () => {
-    const loginButton = document.getElementById('login-button');
-    const resetButton = document.getElementById('reset-button');
+    const resetAllButton = document.getElementById('reset-all-button');
+    const viewScoresButton = document.getElementById('view-scores-button');
+    const playerDataDiv = document.getElementById('player-data');
     const runCodeButton = document.getElementById('run-code-button');
-    const adminActions = document.getElementById('admin-actions');
 
-    loginButton.addEventListener('click', () => {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        console.log('Login attempt:', { username, password });
-
-        // Simple authentication (for demonstration purposes only)
-        if (username === 'admin' && password === 'password') {
-            console.log('Login successful');
-            adminActions.classList.remove('d-none');
-        } else {
-            console.log('Invalid credentials');
-            alert('Invalid credentials');
+    // Function to retrieve player data from localStorage
+    function getPlayerData() {
+        const playerData = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('player_')) {
+                const playerName = key.split('_')[1];
+                const playerCookies = parseInt(localStorage.getItem(key));
+                playerData.push({ playerName, playerCookies });
+            }
         }
-    });
+        return playerData;
+    }
 
-    resetButton.addEventListener('click', () => {
+    // Function to display player data in a table
+    function displayPlayerData(data) {
+        const table = `
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Cookies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(player => `
+                        <tr>
+                            <td>${player.playerName}</td>
+                            <td>${player.playerCookies}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        playerDataDiv.innerHTML = table;
+    }
+
+    // Reset all user data
+    resetAllButton.addEventListener('click', () => {
         if (confirm('Are you sure you want to reset all user data?')) {
-            localStorage.removeItem('cookies');
-            localStorage.removeItem('clickValue');
+            localStorage.clear();
             alert('All user data has been reset.');
+            playerDataDiv.innerHTML = ''; // Clear the displayed data after reset
         }
     });
 
+    // View all player scores
+    viewScoresButton.addEventListener('click', () => {
+        const playerData = getPlayerData();
+        displayPlayerData(playerData);
+    });
+
+    // Run code button click event
     runCodeButton.addEventListener('click', () => {
         const adminCode = document.getElementById('admin-code').value;
         try {
-            console.log('Running code:', adminCode);
             eval(adminCode);
             alert('Code executed successfully.');
         } catch (error) {
-            console.log('Error executing code:', error);
             alert('Error executing code: ' + error.message);
         }
     });

@@ -3,33 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container text-center mt-5">
-        <h1 class="mb-4">Admin Login</h1>
+        <h1 class="mb-4">Admin Dashboard</h1>
+        <div class="mb-3">
+            <button id="reset-all-button" class="btn btn-danger mr-3">Reset All User Data</button>
+            <button id="view-scores-button" class="btn btn-info mr-3">View All Player Scores</button>
+        </div>
+        <div id="player-data" class="mb-5"></div>
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" class="form-control w-50 mx-auto">
+            <label for="admin-code">Run Code:</label>
+            <textarea id="admin-code" class="form-control w-75 mx-auto" rows="5"></textarea>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" class="form-control w-50 mx-auto">
-        </div>
-        <button id="login-button" class="btn btn-primary mb-4">Login</button>
-        <div id="admin-actions" class="d-none">
-            <h2 class="mb-4">Admin Actions</h2>
-            <button id="reset-button" class="btn btn-danger mb-3">Reset All User Data</button>
-            <div class="form-group">
-                <label for="admin-code">Run Code:</label>
-                <textarea id="admin-code" class="form-control w-50 mx-auto" rows="5"></textarea>
-            </div>
-            <button id="run-code-button" class="btn btn-secondary">Run Code</button>
-        </div>
+        <button id="run-code-button" class="btn btn-secondary">Run Code</button>
     </div>
     <script src="admin.js"></script>
 </body>
 </html>
-
