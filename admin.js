@@ -9,10 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
+        console.log('Login attempt:', { username, password });
+
         // Simple authentication (for demonstration purposes only)
-        if (username === 'ambrizas' && password === 'Whenwillcovidendin?1') {
+        if (username === 'admin' && password === 'password') {
+            console.log('Login successful');
             adminActions.classList.remove('d-none');
         } else {
+            console.log('Invalid credentials');
             alert('Invalid credentials');
         }
     });
@@ -28,9 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     runCodeButton.addEventListener('click', () => {
         const adminCode = document.getElementById('admin-code').value;
         try {
+            console.log('Running code:', adminCode);
             eval(adminCode);
             alert('Code executed successfully.');
         } catch (error) {
+            console.log('Error executing code:', error);
             alert('Error executing code: ' + error.message);
         }
     });
