@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         // Simple authentication (for demonstration purposes only)
-        if (username === 'admin' && password === 'password') {
+        if (username === 'ambrizas' && password === 'Whenwillcovidendin?1') {
             adminActions.classList.remove('d-none');
         } else {
             alert('Invalid credentials');
