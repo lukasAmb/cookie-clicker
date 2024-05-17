@@ -1,7 +1,12 @@
 // admin.js
 document.addEventListener('DOMContentLoaded', () => {
-    const resetAllButton = document.getElementById('reset-all-button');
-    const viewScoresButton = document.getElementById('view-scores-button');
+    const adminLoginForm = document.getElementById('admin-login-form');
+    const adminUsernameInput = document.getElementById('admin-username');
+    const adminPasswordInput = document.getElementById('admin-password');
+    const adminLoginButton = document.getElementById('admin-login-button');
+    const playerLoginForm = document.getElementById('player-login-form');
+    const playerUsernameInput = document.getElementById('player-username');
+    const playerLoginButton = document.getElementById('player-login-button');
     const playerDataDiv = document.getElementById('player-data');
     const runCodeButton = document.getElementById('run-code-button');
 
@@ -42,19 +47,29 @@ document.addEventListener('DOMContentLoaded', () => {
         playerDataDiv.innerHTML = table;
     }
 
-    // Reset all user data
-    resetAllButton.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset all user data?')) {
-            localStorage.clear();
-            alert('All user data has been reset.');
-            playerDataDiv.innerHTML = ''; // Clear the displayed data after reset
+    // Admin login
+    adminLoginButton.addEventListener('click', () => {
+        const adminUsername = adminUsernameInput.value.trim();
+        const adminPassword = adminPasswordInput.value.trim();
+        // Simple authentication (for demonstration purposes only)
+        if (adminUsername === 'admin' && adminPassword === 'adminpass') {
+            adminLoginForm.classList.add('d-none');
+        } else {
+            alert('Invalid admin credentials');
         }
     });
 
-    // View all player scores
-    viewScoresButton.addEventListener('click', () => {
-        const playerData = getPlayerData();
-        displayPlayerData(playerData);
+    // Player login
+    playerLoginButton.addEventListener('click', () => {
+        const playerUsername = playerUsernameInput.value.trim();
+        // Simple authentication (for demonstration purposes only)
+        if (playerUsername) {
+            alert(`Welcome, ${playerUsername}!`);
+            playerLoginForm.classList.add('d-none');
+            playerDataDiv.innerHTML = ''; // Clear the displayed data after login
+        } else {
+            alert('Please enter a username');
+        }
     });
 
     // Run code button click event
