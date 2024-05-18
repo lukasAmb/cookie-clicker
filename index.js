@@ -1,47 +1,37 @@
-// index.js
 document.addEventListener('DOMContentLoaded', () => {
-    const playerLoginSignupButton = document.getElementById('player-login-signup-button');
-    const playerLoginSignupForm = document.getElementById('player-login-signup-form');
-    const playerLoginButton = document.getElementById('player-login-button');
-    const playerSignupButton = document.getElementById('player-signup-button');
-    const cookieClickerGame = document.getElementById('cookie-clicker-game');
-    const playerUsernameInput = document.getElementById('player-username');
-    const playerPasswordInput = document.getElementById('player-password');
+    const cookie = document.getElementById('cookie');
+    const cookieCountElement = document.getElementById('cookie-count');
+    const upgradeButton = document.getElementById('upgrade-button');
+    const adminUsernameInput = document.getElementById('admin-username');
+    const adminPasswordInput = document.getElementById('admin-password');
+    const adminLoginButton = document.getElementById('admin-login-button');
 
-    playerLoginSignupButton.addEventListener('click', () => {
-        playerLoginSignupForm.classList.toggle('d-none');
+    let cookies = 0;
+
+    cookie.addEventListener('click', () => {
+        cookies++;
+        updateCookieCount();
     });
 
-    playerSignupButton.addEventListener('click', () => {
-        const username = playerUsernameInput.value.trim();
-        const password = playerPasswordInput.value.trim();
-
-        if (username && password) {
-            if (localStorage.getItem(`player_${username}`)) {
-                alert('Username already exists. Please choose a different username.');
-            } else {
-                localStorage.setItem(`player_${username}`, JSON.stringify({ password, cookies: 0 }));
-                alert('Signup successful! You can now log in.');
-            }
-        } else {
-            alert('Please enter both username and password.');
-        }
+    upgradeButton.addEventListener('click', () => {
+        cookies += 10; // Increase score by 10 on each upgrade
+        updateCookieCount();
     });
 
-    playerLoginButton.addEventListener('click', () => {
-        const username = playerUsernameInput.value.trim();
-        const password = playerPasswordInput.value.trim();
+    function updateCookieCount() {
+        cookieCountElement.textContent = `Cookies: ${cookies}`;
+    }
 
-        const storedPlayer = JSON.parse(localStorage.getItem(`player_${username}`));
+    adminLoginButton.addEventListener('click', () => {
+        const adminUsername = adminUsernameInput.value.trim();
+        const adminPassword = adminPasswordInput.value.trim();
 
-        if (storedPlayer && storedPlayer.password === password) {
-            alert(`Welcome, ${username}!`);
-            playerLoginSignupForm.classList.add('d-none');
-            cookieClickerGame.classList.remove('d-none');
-            // Initialize game state with the logged-in player's data
-            // (for demonstration, not implemented here)
+        // Validate admin credentials (you can replace this with your own logic)
+        if (adminUsername === 'admin' && adminPassword === 'admin') {
+            alert('Admin login successful!');
+            // Redirect to admin panel or perform admin actions
         } else {
-            alert('Invalid username or password.');
+            alert('Invalid admin username or password.');
         }
     });
 });
