@@ -1,17 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cookie = document.getElementById('cookie');
-    const cookieCountElement = document.getElementById('cookie-count');
     const upgradeButton = document.getElementById('upgrade-button');
+    const cookieCountElement = document.getElementById('cookie-count');
     const adminUsernameInput = document.getElementById('admin-username');
     const adminPasswordInput = document.getElementById('admin-password');
     const adminLoginButton = document.getElementById('admin-login-button');
 
     let cookies = 0;
-
-    cookie.addEventListener('click', () => {
-        cookies++;
-        updateCookieCount();
-    });
 
     upgradeButton.addEventListener('click', () => {
         cookies += 10; // Increase score by 10 on each upgrade
