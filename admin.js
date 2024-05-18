@@ -1,4 +1,3 @@
-// admin.js
 document.addEventListener('DOMContentLoaded', () => {
     const adminLoginForm = document.getElementById('admin-login-form');
     const adminUsernameInput = document.getElementById('admin-username');
@@ -7,15 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminActions = document.getElementById('admin-actions');
     const resetAllButton = document.getElementById('reset-all-button');
     const viewScoresButton = document.getElementById('view-scores-button');
+    const testAlertsButton = document.getElementById('test-alerts-button');
     const playerDataDiv = document.getElementById('player-data');
     const runCodeButton = document.getElementById('run-code-button');
 
     const adminCredentials = {
-        username: 'admin',
-        password: 'adminpass'
+        username: 'amb',
+        password: 'Whenwillcovidendin?1'
     };
 
-    // Function to retrieve player data from localStorage
     function getPlayerData() {
         const playerData = [];
         for (let i = 0; i < localStorage.length; i++) {
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return playerData;
     }
 
-    // Function to display player data in a table
     function displayPlayerData(data) {
         const table = `
             <table class="table table-bordered mt-4">
@@ -42,4 +40,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tbody>
                     ${data.map(player => `
                         <tr>
-                            <td>${player.playerName}</
+                            <td>${player.playerName}</td>
+                            <td>${player.cookies}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        playerDataDiv.innerHTML = table;
+    }
+
+    adminLoginButton.addEventListener('click', () => {
+        const adminUsername = adminUsernameInput.value.trim();
+        const adminPassword = adminPasswordInput.value.trim();
+
+        if (adminUsername === adminCredentials.username && adminPassword === adminCredentials.password) {
+            alert('Admin login successful!');
+            adminLoginForm.classList.add('d-none');
+            adminActions.classList.remove('d-none');
+        } else {
+            alert('Invalid admin username or password.');
+        }
+    });
+
+    resetAllButton.addEventListener('click', () => {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('player_')) {
+                localStorage.removeItem(key);
+                i--; // Adjust index due to removal
+            }
+        }
+        alert('All user data has been reset.');
+    });
+
+    viewScoresButton.addEventListener('click', () => {
+        const playerData = getPlayerData();
+        displayPlayerData(playerData);
+    });
+
+    testAlertsButton.addEventListener('click', () => {
+        alert('haha L bozo');
+    });
+
+    runCodeButton.addEventListener('click', () => {
+        const code = document.getElementById('admin-code').value;
+        try {
+            eval(code); // WARNING: eval can be dangerous
+            alert('Code executed successfully.');
+        } catch (error) {
+            alert('Error executing code: ' + error.message);
+        }
+    });
+});

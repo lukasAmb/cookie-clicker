@@ -1,42 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container text-center mt-5">
-        <h1 class="mb-4">Admin Dashboard</h1>
-        <div id="admin-login-form">
-            <h2>Admin Login</h2>
-            <div class="form-group">
-                <label for="admin-username">Username:</label>
-                <input type="text" id="admin-username" class="form-control w-50 mx-auto">
-            </div>
-            <div class="form-group">
-                <label for="admin-password">Password:</label>
-                <input type="password" id="admin-password" class="form-control w-50 mx-auto">
-            </div>
-            <button id="admin-login-button" class="btn btn-primary">Login</button>
-        </div>
-        <div id="admin-actions" class="d-none mt-4">
-            <h2>Admin Actions</h2>
-            <div class="mb-3">
-                <button id="reset-all-button" class="btn btn-danger mr-3">Reset All User Data</button>
-                <button id="view-scores-button" class="btn btn-info mr-3">View All Player Scores</button>
-            </div>
-            <div id="player-data" class="mb-5"></div>
-            <div class="form-group">
-                <label for="admin-code">Run Code:</label>
-                <textarea id="admin-code" class="form-control w-75 mx-auto" rows="5"></textarea>
-            </div>
-            <button id="run-code-button" class="btn btn-secondary">Run Code</button>
-        </div>
-    </div>
-    <script src="admin.js"></script>
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', () => {
+    const playerLoginSignupButton = document.getElementById('player-login-signup-button');
+    const playerLoginSignupForm = document.getElementById('player-login-signup-form');
+    const playerLoginButton = document.getElementById('player-login-button');
+    const playerSignupButton = document.getElementById('player-signup-button');
+    const cookieClickerGame = document.getElementById('cookie-clicker-game');
+    const cookieCountElement = document.getElementById('cookie-count');
+    const cookie = document.getElementById('cookie');
+    const upgradeButton = document.getElementById('upgrade-button');
+    const playerUsernameInput = document.getElementById('player-username');
+    const playerPasswordInput = document.getElementById('player-password');
 
+    let currentPlayer = null;
+    let cookies = 0;
+
+    playerLoginSignupButton.addEventListener('click', () => {
+        playerLoginSignupForm.classList.toggle('d-none');
+    });
+
+    playerSignupButton.addEventListener('click', () => {
+        const username = playerUsernameInput.value.trim();
+        const password = playerPasswordInput.value.trim();
+
+        if (username && password) {
+            if (localStorage.getItem(`player_${username}`)) {
+                alert('Username already exists. Please choose a different username.');
+            } else {
+                localStorage.setItem(`player_${username}`, JSON.stringify({ password, cookies: 0 }));
+                alert('Signup successful! You can now log in.');
+            }
+        } else {
+            alert('Please enter both username and password.');
+        }
+    });
+
+    playerLoginButton.addEventListener('click', () => {
+        const username = playerUsernameInput.value.trim();
+        const password = playerPasswordInput.value.trim();
+
+        const storedPlayer = JSON.parse(localStorage.getItem(`player_${username}`));
+
+        if (storedPlayer && storedPlayer.password === password) {
+            currentPlayer = username;
+            cookies = storedPlayer.cookies;
+            cookieCountElement.textContent = `Cookies: ${cookies}`;
+            alert(`Welcome, ${username}!`);
+            playerLoginSignupForm.classList.add('d-none');
+            cookieClickerGame.classList.remove('d-none');
+        } else {
+            alert('Invalid username or password.');
+        }
+    });
+
+    cookie.addEventListener('click', () => {
+        if (currentPlayer) {
+            cookies++;
+            cookieCountElement.textContent = `Cookies: ${cookies}`;
+            localStorage.setItem(`player_${currentPlayer}`, JSON.stringify({ password: JSON.parse(localStorage.getItem(`player_${currentPlayer}`)).password, cookies }));
+        } else {
+            alert('You need to log in first!');
+        }
+    });
+
+    upgradeButton.addEventListener('click', () => {
+        if (currentPlayer) {
+            // Add upgrade functionality here
+            alert('Upgrade purchased!');
+        } else {
+            alert('You need to log in first!');
+        }
+    });
+});
