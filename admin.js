@@ -4,11 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminUsernameInput = document.getElementById('admin-username');
     const adminPasswordInput = document.getElementById('admin-password');
     const adminLoginButton = document.getElementById('admin-login-button');
-    const playerLoginForm = document.getElementById('player-login-form');
-    const playerUsernameInput = document.getElementById('player-username');
-    const playerLoginButton = document.getElementById('player-login-button');
+    const adminActions = document.getElementById('admin-actions');
+    const resetAllButton = document.getElementById('reset-all-button');
+    const viewScoresButton = document.getElementById('view-scores-button');
     const playerDataDiv = document.getElementById('player-data');
     const runCodeButton = document.getElementById('run-code-button');
+
+    const adminCredentials = {
+        username: 'admin',
+        password: 'adminpass'
+    };
 
     // Function to retrieve player data from localStorage
     function getPlayerData() {
@@ -17,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = localStorage.key(i);
             if (key.startsWith('player_')) {
                 const playerName = key.split('_')[1];
-                const playerCookies = parseInt(localStorage.getItem(key));
-                playerData.push({ playerName, playerCookies });
+                const player = JSON.parse(localStorage.getItem(key));
+                playerData.push({ playerName, cookies: player.cookies });
             }
         }
         return playerData;
@@ -37,49 +42,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tbody>
                     ${data.map(player => `
                         <tr>
-                            <td>${player.playerName}</td>
-                            <td>${player.playerCookies}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-        playerDataDiv.innerHTML = table;
-    }
-
-    // Admin login
-    adminLoginButton.addEventListener('click', () => {
-        const adminUsername = adminUsernameInput.value.trim();
-        const adminPassword = adminPasswordInput.value.trim();
-        // Simple authentication (for demonstration purposes only)
-        if (adminUsername === 'admin' && adminPassword === 'adminpass') {
-            adminLoginForm.classList.add('d-none');
-        } else {
-            alert('Invalid admin credentials');
-        }
-    });
-
-    // Player login
-    playerLoginButton.addEventListener('click', () => {
-        const playerUsername = playerUsernameInput.value.trim();
-        // Simple authentication (for demonstration purposes only)
-        if (playerUsername) {
-            alert(`Welcome, ${playerUsername}!`);
-            playerLoginForm.classList.add('d-none');
-            playerDataDiv.innerHTML = ''; // Clear the displayed data after login
-        } else {
-            alert('Please enter a username');
-        }
-    });
-
-    // Run code button click event
-    runCodeButton.addEventListener('click', () => {
-        const adminCode = document.getElementById('admin-code').value;
-        try {
-            eval(adminCode);
-            alert('Code executed successfully.');
-        } catch (error) {
-            alert('Error executing code: ' + error.message);
-        }
-    });
-});
+                            <td>${player.playerName}</

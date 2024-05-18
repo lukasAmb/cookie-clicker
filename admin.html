@@ -10,7 +10,7 @@
 <body>
     <div class="container text-center mt-5">
         <h1 class="mb-4">Admin Dashboard</h1>
-        <div id="admin-login-form" class="d-none">
+        <div id="admin-login-form">
             <h2>Admin Login</h2>
             <div class="form-group">
                 <label for="admin-username">Username:</label>
@@ -22,21 +22,21 @@
             </div>
             <button id="admin-login-button" class="btn btn-primary">Login</button>
         </div>
-        <div id="player-login-form">
-            <h2>Player Login</h2>
-            <div class="form-group">
-                <label for="player-username">Username:</label>
-                <input type="text" id="player-username" class="form-control w-50 mx-auto">
+        <div id="admin-actions" class="d-none mt-4">
+            <h2>Admin Actions</h2>
+            <div class="mb-3">
+                <button id="reset-all-button" class="btn btn-danger mr-3">Reset All User Data</button>
+                <button id="view-scores-button" class="btn btn-info mr-3">View All Player Scores</button>
             </div>
-            <button id="player-login-button" class="btn btn-primary">Login</button>
+            <div id="player-data" class="mb-5"></div>
+            <div class="form-group">
+                <label for="admin-code">Run Code:</label>
+                <textarea id="admin-code" class="form-control w-75 mx-auto" rows="5"></textarea>
+            </div>
+            <button id="run-code-button" class="btn btn-secondary">Run Code</button>
         </div>
-        <div id="player-data" class="mt-5"></div>
-        <div class="form-group">
-            <label for="admin-code">Run Code:</label>
-            <textarea id="admin-code" class="form-control w-75 mx-auto" rows="5"></textarea>
-        </div>
-        <button id="run-code-button" class="btn btn-secondary">Run Code</button>
     </div>
     <script src="admin.js"></script>
 </body>
 </html>
+

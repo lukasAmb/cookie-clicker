@@ -3,23 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WIP</title>
+    <title>Cookie Clicker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container text-center mt-5">
-        <h1 class="mb-4">WIP</h1>
-        <div id="cookie-counter" class="display-4 mb-4">Cookies: 0</div>
-        <button id="cookie-button" class="btn btn-primary btn-lg mb-4">Click me!</button>
-        <div id="upgrades">
-            <button id="upgrade1" class="btn btn-secondary btn-lg mb-2">Upgrade 1 (Cost: 50 cookies)</button>
-            <button id="upgrade2" class="btn btn-secondary btn-lg mb-2">Upgrade 2 (Cost: 200 cookies)</button>
+        <h1 class="mb-4">Cookie Clicker</h1>
+        <button id="player-login-signup-button" class="btn btn-primary mb-4">Player Login/Signup</button>
+        <div id="player-login-signup-form" class="d-none mb-5">
+            <h2>Player Login/Signup</h2>
+            <div class="form-group">
+                <label for="player-username">Username:</label>
+                <input type="text" id="player-username" class="form-control w-50 mx-auto">
+            </div>
+            <div class="form-group">
+                <label for="player-password">Password:</label>
+                <input type="password" id="player-password" class="form-control w-50 mx-auto">
+            </div>
+            <button id="player-login-button" class="btn btn-primary">Login</button>
+            <button id="player-signup-button" class="btn btn-secondary">Signup</button>
         </div>
-        <div class="admin-link mt-4">
-            <a href="admin.html" class="btn btn-link">Admin Login</a>
+        <div id="cookie-clicker-game" class="d-none">
+            <!-- Your game interface goes here -->
+            <img src="assets/images/cookie.png" alt="Cookie" id="cookie">
+            <p id="cookie-count">Cookies: 0</p>
+            <button id="upgrade-button" class="btn btn-success">Upgrade</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

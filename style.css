@@ -1,26 +1,32 @@
 /* styles.css */
 body {
-    background-color: #f0f2f5;
-    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
 }
 
-.container {
+h1 {
+    color: #343a40;
+}
+
+#cookie {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+#cookie-count {
+    font-size: 1.5em;
+}
+
+#player-login-signup-form,
+#admin-login-form {
+    background-color: #ffffff;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#cookie-button, .upgrade {
-    width: 100%;
-    max-width: 300px;
-}
-
-.admin-link a {
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.admin-link a:hover {
-    text-decoration: underline;
+#player-login-signup-form h2,
+#admin-login-form h2 {
+    color: #343a40;
 }
