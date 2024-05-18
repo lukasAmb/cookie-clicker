@@ -4,30 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Clicker</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 class="mb-4">Cookie Clicker</h1>
-        <div id="cookie-clicker-game">
-            <button id="upgrade-button" class="btn btn-success">Upgrade</button>
-            <p id="cookie-count">Cookies: 0</p>
-        </div>
-        <div id="admin-login-form">
-            <h2>Admin Login</h2>
-            <div class="form-group">
-                <label for="admin-username">Username:</label>
-                <input type="text" id="admin-username" class="form-control w-50 mx-auto">
-            </div>
-            <div class="form-group">
-                <label for="admin-password">Password:</label>
-                <input type="password" id="admin-password" class="form-control w-50 mx-auto">
-            </div>
-            <button id="admin-login-button" class="btn btn-primary">Login</button>
+    <div class="container">
+        <h1 class="title">Cookie Clicker</h1>
+        <div id="cookie-clicker-game" class="cookie-clicker-game">
+            <button id="cookie" class="cookie-btn">
+                <img src="assets/images/cookie.png" alt="Cookie">
+            </button>
+            <p id="cookie-count" class="cookie-count">Cookies: 0</p>
         </div>
     </div>
     <script src="index.js"></script>
 </body>
 </html>
-k

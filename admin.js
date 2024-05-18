@@ -1,95 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const adminLoginForm = document.getElementById('admin-login-form');
-    const adminUsernameInput = document.getElementById('admin-username');
-    const adminPasswordInput = document.getElementById('admin-password');
-    const adminLoginButton = document.getElementById('admin-login-button');
-    const adminActions = document.getElementById('admin-actions');
-    const resetAllButton = document.getElementById('reset-all-button');
-    const viewScoresButton = document.getElementById('view-scores-button');
-    const testAlertsButton = document.getElementById('test-alerts-button');
-    const playerDataDiv = document.getElementById('player-data');
-    const runCodeButton = document.getElementById('run-code-button');
+    const resetDataButton = document.getElementById('reset-data-btn');
+    const runCodeButton = document.getElementById('run-code-btn');
+    const viewScoresButton = document.getElementById('view-scores-btn');
+    const scoresContainer = document.getElementById('scores');
 
-    const adminCredentials = {
-        username: 'rizzler',
-        password: 'Sunelis123'
-    };
+    resetDataButton.addEventListener('click', async () => {
+        // Send request to reset data
+        // Example: await fetch('/resetData', { method: 'POST' });
 
-    function getPlayerData() {
-        const playerData = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key.startsWith('player_')) {
-                const playerName = key.split('_')[1];
-                const player = JSON.parse(localStorage.getItem(key));
-                playerData.push({ playerName, cookies: player.cookies });
-            }
-        }
-        return playerData;
-    }
-
-    function displayPlayerData(data) {
-        const table = `
-            <table class="table table-bordered mt-4">
-                <thead>
-                    <tr>
-                        <th>Player Name</th>
-                        <th>Cookies</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${data.map(player => `
-                        <tr>
-                            <td>${player.playerName}</td>
-                            <td>${player.cookies}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-        playerDataDiv.innerHTML = table;
-    }
-
-    adminLoginButton.addEventListener('click', () => {
-        const adminUsername = adminUsernameInput.value.trim();
-        const adminPassword = adminPasswordInput.value.trim();
-
-        if (adminUsername === adminCredentials.username && adminPassword === adminCredentials.password) {
-            alert('Admin login successful!');
-            adminLoginForm.classList.add('d-none');
-            adminActions.classList.remove('d-none');
-        } else {
-            alert('Invalid admin username or password.');
-        }
-    });
-
-    resetAllButton.addEventListener('click', () => {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key.startsWith('player_')) {
-                localStorage.removeItem(key);
-                i--; // Adjust index due to removal
-            }
-        }
-        alert('All user data has been reset.');
-    });
-
-    viewScoresButton.addEventListener('click', () => {
-        const playerData = getPlayerData();
-        displayPlayerData(playerData);
-    });
-
-    testAlertsButton.addEventListener('click', () => {
-        alert('haha L bozo');
+        alert('All data has been reset.');
     });
 
     runCodeButton.addEventListener('click', () => {
-        const code = document.getElementById('admin-code').value;
+        const code = prompt('Enter the code to run:');
+        // Execute the code (e.g., using eval)
         try {
-            eval(code); // WARNING: eval can be dangerous
-            alert('Code executed successfully.');
+            eval(code);
         } catch (error) {
             alert('Error executing code: ' + error.message);
         }
     });
+
+    viewScoresButton.addEventListener('click', async () => {
+        // Fetch scores data and display
+        // Example: const response = await fetch('/getScores');
+        // const scores = await response.json();
+        const scores = [
+            { username: 'User1', score: 100 },
+            { username: 'User2', score: 200 },
+            { username: 'User3', score: 150 }
+        ];
+        renderScores(scores);
+    });
+
+    function renderScores(scores) {
+        scoresContainer.innerHTML = '';
+        const ul = document.createElement('ul');
+        scores.forEach(score => {
+            const li = document.createElement('li');
+            li.textContent = `${score.username}: ${score.score}`;
+            ul.appendChild(li);
+        });
+        scoresContainer.appendChild(ul);
+    }
 });
