@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const runCodeButton = document.getElementById('run-code-button');
 
     const adminCredentials = {
-        username: 'amb',
-        password: 'Whenwillcovidendin?1'
+        username: 'rizzler',
+        password: 'Sunelis123'
     };
 
     function getPlayerData() {
